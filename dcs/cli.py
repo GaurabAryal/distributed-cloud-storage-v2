@@ -2,11 +2,13 @@
 # dcs/cli.py
 
 from typing import Optional
+import os
 
 import typer
 
 from dcs import __app_name__, __version__
-from dcs.setup import setup_gui
+from dcs.setup._airtable import _Airtable
+
 
 app = typer.Typer()
 
@@ -18,10 +20,21 @@ def _version_callback(value: bool) -> None:
 @app.command()
 def setup(value: str = typer.Argument(..., help="Enter a specific API to setup e.g \"Airtable\" or launch the setup GUI with no arguments.")):
     typer.echo(f"{value}")
-    # if value == Airtable:
-    # setup.create_gui()
+    from dcs.setup import setup_gui
+    setup.create_gui()
     setup_gui.app
     raise typer.Exit()
+
+
+@app.command()
+def airtable():
+    typer.echo("setting up airtable")
+    # TODO: move api key get to init file
+    at_key = os.environ.get('AIRTABLE_API_KEY', 'No Airtable API key found.')
+    at = _Airtable(at_key)
+    at.create()
+    raise typer.Exit()
+
 
 @app.callback()
 def main(

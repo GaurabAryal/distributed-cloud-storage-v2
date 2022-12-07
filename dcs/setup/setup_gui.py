@@ -4,7 +4,6 @@ import subprocess
 from PyQt6.QtWidgets import QApplication, QWidget,  QFormLayout, QGridLayout, QTabWidget, QLineEdit, QDateEdit, QPushButton, QLabel
 from PyQt6.QtCore import Qt, pyqtSlot
 
-
 class MainWindow(QWidget):
     btn_save = None
     tab = None
@@ -21,10 +20,11 @@ class MainWindow(QWidget):
 
         # setup airtable
         at_setup = self.atable_setup()
+
         # setup dropbox
         db_setup = self.dbox_setup()
 
-                # add pane to the tab widget
+        # add setup widets to the tab widget
         self.tab.addTab(at_setup, 'Airtable*')
         self.tab.addTab(db_setup, 'Dropbox*')
         
@@ -75,6 +75,8 @@ class MainWindow(QWidget):
         layout = QFormLayout()
         airtable_setup.setLayout(layout)
         self.airtable_info = QLabel("Configure Airtable for centralized hashed shared keys.")
+        
+        # TODO: move api key get to init file
         airtable_key = os.environ.get('AIRTABLE_API_KEY', 'No Airtable API key found.')
         self.airtable_api_key = QLineEdit(airtable_key)
         self.airtable_api_key.setEnabled(False)
@@ -100,6 +102,8 @@ class MainWindow(QWidget):
         dropbox_setup = QWidget(self)
         layout = QFormLayout()
         dropbox_setup.setLayout(layout)
+        
+        # TODO: move api key get to init file
         dropbox_key = os.environ.get('DROPBOX_API_KEY', 'No Dropbox API key found.')
         self.dropbox_info = QLabel("Configure Airtable for centralized hashed shared keys.")
         self.dropbox_api_key = QLineEdit(dropbox_key)
