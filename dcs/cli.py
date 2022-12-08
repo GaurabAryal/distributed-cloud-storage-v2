@@ -7,7 +7,6 @@ import os
 import typer
 
 from dcs import __app_name__, __version__
-from dcs.setup._airtable import _Airtable
 
 
 app = typer.Typer()
@@ -27,8 +26,8 @@ def setup(value: str = typer.Argument(..., help="Enter a specific API to setup e
 
 
 @app.command()
-def airtable():
-    typer.echo("setting up airtable")
+def watch():
+    typer.echo("dcs starting setup")
     # TODO: move api key get to init file
     at_key = os.environ.get('AIRTABLE_API_KEY', 'No Airtable API key found.')
     at = _Airtable(at_key)
