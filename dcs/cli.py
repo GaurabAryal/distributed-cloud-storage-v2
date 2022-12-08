@@ -32,7 +32,7 @@ def airtable():
     # TODO: move api key get to init file
     at_key = os.environ.get('AIRTABLE_API_KEY', 'No Airtable API key found.')
     at = _Airtable(at_key)
-    at.create()
+    at.create_record()
     raise typer.Exit()
 
 

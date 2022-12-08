@@ -9,9 +9,8 @@ class _Airtable():
         records = self.at.get_all()
         print(records)
     
-    def create(self):
-        self.at.insert({'id':1, 'location':1})
-        self.get_file_location(0)
+    def create_record(self, id, location):
+        self.at.insert({'id':id, 'location':location})
     
     def get_file_location(self, id):
         record = self.at.search('id', id)

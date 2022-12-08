@@ -2,3 +2,4 @@
 .python
 .ds_store
 lib/*
+.vscode
